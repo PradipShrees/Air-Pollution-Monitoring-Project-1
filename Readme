@@ -1,398 +1,89 @@
-# Chapter 1: Project Overview & Problem Framing
+# 🌍 Air Pollution Monitoring Project
 
-## Background
-
-Air pollution poses significant risks to human health and the environment.  Fine particulate matter (PM2.5) penetrates deeply into the lungs and bloodstream and is linked to heart attacks, strokes and respiratory illnesses【280450530448525†L115-L123】.  Nitrogen dioxide (NO₂) and volatile organic compounds (VOCs) irritate airways and reduce lung function【859927225280314†L41-L61】.  The World Health Organization (WHO) reports that **92 %** of the world’s population breathes air exceeding its quality guidelines【280450530448525†L115-L123】.  Governments have responded by tightening standards—such as the U.S. Environmental Protection Agency’s new annual PM2.5 limit of **9 μg/m³**【280450530448525†L115-L123】—but monitoring networks remain sparse and expensive.  Low‑income communities often lack real‑time data, hindering informed decisions about exposure and public health.  Locally, bushfires, industrial emissions and traffic congestion periodically degrade air quality, making continuous monitoring relevant for Sydney and surrounding regions.  Illustrating the health impacts with an infographic or bar chart comparing pollutant limits to typical urban levels would help convey urgency at the beginning of your report.
-
-## Problem Statement
-
-Existing air quality monitoring networks rely on stationary reference instruments that are accurate but costly and limited in spatial coverage.  Portable consumer devices exist but often measure only a subset of pollutants and lack open data APIs.  Community‑driven IoT sensor networks have emerged, but they frequently suffer from calibration issues, unreliable connectivity and limited integration with user‑friendly dashboards【891104164000418†L55-L103】.  Our project aims to bridge this gap by designing a **low‑cost, modular air quality monitoring system** that uses a Raspberry Pi 5 and multiple sensors, communicates via MQTT or LoRaWAN, stores data in a cloud database and provides real‑time visualisation and alerts.  A clear flowchart showing the gap between expensive reference monitors and low‑cost, inaccurate devices can help frame the problem.
-
-## Project Objectives
-
-The project’s goals are formulated as clear, measurable objectives:
-
-1. **Real‑time sensing and transmission** – design a system that reads PM2.5/PM10, CO₂, VOC/NO₂ and temperature/humidity sensors at user‑defined intervals and transmits validated data to the cloud within **5 seconds** of acquisition【969434594594407†L519-L569】.
-2. **Modular architecture** – implement a layered architecture consisting of sensor nodes, communication network (Wi‑Fi/MQTT and optional LoRaWAN), cloud services (Firebase Firestore, Authentication, Functions) and a React web dashboard.  Each layer should be independently replaceable.
-3. **User‑friendly dashboard** – develop a responsive web application that visualises live and historical data, allows configuration of thresholds and alert channels, and supports role‑based access (admin vs viewer).
-4. **Alerting functionality** – implement threshold‑based alerts that notify users when pollutant concentrations exceed safe levels.  Notifications will be delivered via email or push messages with minimal false positives【969434594594407†L630-L657】.
-5. **Scalability and extensibility** – design the system to support multiple nodes and future integration of additional sensors (e.g., ozone, carbon monoxide), machine‑learning forecasting and mobile applications.
-
-## Scope and Boundaries
-
-The project includes designing and implementing a prototype IoT‑based air quality monitoring system using Raspberry Pi 5 and a set of low‑cost sensors (PM2.5/PM10, CO₂, VOC or NO₂, temperature and humidity).  It will support data transmission via Wi‑Fi and MQTT and optionally via LoRaWAN.  Cloud storage, user authentication and alert management will be handled through Firebase services.  A React dashboard will be built to visualise data and manage devices.  
-The project excludes regulatory certification of the sensor hardware and does not guarantee that readings meet official monitoring standards.  It does not implement a mobile application or offline web app but lays the foundation for such features.  Only a limited number of pollutants will be measured; gases like ozone, sulfur dioxide and carbon monoxide are outside the scope.  The prototype will be tested in controlled conditions rather than large‑scale deployment.
-
-## Stakeholders and Users
-
-The system targets several stakeholder groups:
-
-* **Students and researchers** – to experiment with environmental sensing, data analysis and IoT architectures in an educational setting.
-* **Public users** – residents who wish to monitor indoor or neighbourhood air quality and receive alerts for high pollution events.
-* **Campus administrators and facilities managers** – to monitor building environments, inform ventilation decisions and ensure occupational health standards.
-* **Developers and hobbyists** – to extend the system with additional sensors or integrations (e.g., home automation or smart city platforms).
-
-Understanding user needs is critical for requirement prioritisation.  A stakeholder map or a table of personas with associated needs (data resolution, alert preferences, technical familiarity) can help refine requirements.
-
-## Assumptions and Constraints
-
-Several assumptions and constraints guide this project:
-
-* **Budget** – constrained by the costs of a Raspberry Pi 5, sensors, LoRa modules and a basic enclosure.  High‑precision reference instruments are not affordable.
-* **Timeframe** – the project is developed within a semester, limiting the scope for extensive calibration, multi‑node deployment or long‑term testing.
-* **Hardware limits** – the Raspberry Pi must provide sufficient CPU and memory for sensor interfacing, data processing and networking; sensors operate within specific temperature and humidity ranges.
-* **Connectivity** – continuous Wi‑Fi connectivity is assumed for the prototype; LoRaWAN support is optional and limited by regional duty‑cycle regulations【833560065655601†L81-L99】.
-* **User expertise** – users may not have technical expertise; thus the system must be easy to assemble and configure without programming knowledge.
-* **Data interpretation** – sensor readings are considered indicative rather than absolute due to calibration uncertainties【891104164000418†L134-L166】.  Thresholds will be based on conservative guidelines (e.g., WHO) and may not reflect personalised health advice.
-
-## Deliverables for Part 1
-
-* **Chapter 1 (Introduction)** – summarises the background, problem statement, objectives, scope, stakeholders, assumptions and constraints.  This chapter introduces the reader to the significance of air quality monitoring and the need for an accessible, real‑time system.
-* **Project Summary** – a one‑page abstract summarising the project motivation, goals, high‑level design and expected contributions.  Use this summary for presentations and executive overviews.  Include a small figure or chart illustrating the major pollutants and their health impacts or a map highlighting areas lacking monitoring.
-
-Tips: For Chapter 1, incorporate a pie chart or infographic comparing the WHO guideline limits for PM2.5, NO₂ and VOCs with typical urban concentrations.  A simple map or diagram that shows the lack of air quality stations in certain neighbourhoods can emphasise local relevance.  Use icons to represent stakeholders, making the narrative relatable.
+A modular, real-time **IoT-based Air Quality Monitoring System** built with **Raspberry Pi 5**, low-cost environmental sensors, cloud backend services, and a professional React dashboard.
 
 ---
 
-# Chapter 2: Literature Review & Existing Systems Comparison
+## 📌 Project Overview
 
-## Overview of IoT Air Quality Monitoring Systems
+This project addresses the gap between expensive regulatory air monitoring stations and limited low-cost consumer devices by delivering a:
 
-Recent advances in IoT technologies have enabled the deployment of distributed sensor networks for environmental monitoring.  IoT air quality monitoring systems typically consist of low‑cost sensors connected to microcontrollers or single‑board computers, wireless communication modules, cloud backends and visualisation interfaces.  They aim to complement or augment traditional reference stations by providing finer spatial and temporal resolution.  However, several challenges persist: sensor calibration, energy consumption, network coverage, data processing and public trust【891104164000418†L134-L166】.
+- **Low-cost**
+- **Scalable**
+- **Real-time**
+- **User-friendly**
 
-## Sensors and Pollutants
+air quality monitoring platform.
 
-This project measures four pollutant categories: **particulate matter (PM2.5/PM10)**, **carbon dioxide (CO₂)**, **volatile organic compounds (VOC)** or **nitrogen dioxide (NO₂)**, and **temperature/humidity**.  
-
-* **Particulate matter sensors** – Laser scattering sensors such as Plantower PMS7003 and SDS011 count particles and estimate mass concentrations.  They provide PM2.5 and PM10 values at ~1‑minute intervals.  Limitations include sensitivity to humidity and dust accumulation.  Calibration against reference instruments is necessary.
-* **CO₂ sensors** – Non‑dispersive infrared (NDIR) sensors (e.g., MH‑Z19, SCD30) measure CO₂ by detecting the absorption of infrared light.  They offer accuracy around ±50 ppm but require periodic calibration.
-* **VOC/NO₂ sensors** – MOX sensors (e.g., Sensirion SGP30) output a total VOC index; they cannot distinguish individual compounds and suffer from cross‑sensitivity【891104164000418†L55-L103】.  Electrochemical sensors (e.g., Alphasense NO₂‑B43F) provide more specificity for NO₂ but may require analog signal conditioning.
-* **Temperature and humidity sensors** – Devices like the Bosch BME280 provide environmental context necessary for calibrating other sensors.  They are inexpensive and accurate.
-
-Selecting sensors involves balancing cost, accuracy, response time, power consumption and ease of integration.  A table comparing the specifications of candidate sensors (e.g., measurement range, accuracy, interface, cost) can aid selection decisions.
-
-## Edge vs Cloud Processing
-
-Data processing can occur at the **edge** (on the sensor node) or in the **cloud**.  Edge computing reduces latency, bandwidth usage and dependency on connectivity; it allows preliminary analytics and anomaly detection on the device【165343504413612†L66-L96】.  Cloud processing enables more complex analytics, machine‑learning models and centralised storage but introduces latency and potential privacy concerns.  A hybrid approach, where basic validation and filtering occur at the edge and heavy analytics run in the cloud, provides resilience and efficiency【165343504413612†L121-L140】.  A block diagram contrasting edge vs cloud processing can clarify this trade‑off.
-
-## Data Platforms for IoT Projects
-
-Several cloud platforms support IoT data ingestion, storage and analysis:
-
-* **Firebase (Google Cloud)** – offers real‑time database (Firestore), authentication, serverless functions and user-friendly SDKs.  It scales automatically and provides client libraries for web and mobile.  It is free up to certain quotas and suits rapid prototyping.
-* **AWS IoT Core and AWS services** – enable secure device connectivity, message brokering (MQTT), data storage (DynamoDB), analytics (Kinesis, QuickSight) and integration with other AWS services.  AWS offers more enterprise-level features but may have a steeper learning curve.
-* **ThingSpeak (MathWorks)** – a platform specialising in IoT analytics and visualisation.  It provides channels for data storage and built‑in MATLAB analytics.  However, it is less flexible for custom dashboards or authentication.
-
-Our project selects Firebase for its simplicity, real‑time capabilities and generous free tier.  A table comparing platforms based on criteria such as ease of use, cost, scalability and features will justify this choice.
-
-## Visualisation and Dashboard Approaches
-
-Air quality dashboards can be web‑based or mobile apps.  Web dashboards offer cross‑platform access via browsers, while mobile apps provide notifications and offline capabilities.  Visualisation tools include chart libraries (e.g., Chart.js, D3.js), mapping APIs (e.g., Leaflet, Google Maps) and UI frameworks (e.g., React, Vue).  Our project employs a React web dashboard with Chart.js for interactive line charts and tables.  Including a screenshot of a sample dashboard or mockup helps convey the expected user interface.
-
-## Comparison of Existing Solutions vs Our System
-
-The table below compares common features of existing low‑cost air quality monitoring systems with those of our proposed system.  It highlights gaps that our design addresses.
-
-| Feature/Aspect | Existing Low‑Cost Systems | Our Proposed System |
-|---|---|---|
-| **Sensors** | Typically measure only PM2.5 or CO₂; limited pollutant coverage. | Measures PM2.5/PM10, CO₂, VOC or NO₂, temperature and humidity. |
-| **Communication** | Often use Wi‑Fi; few support long‑range communication. | Supports Wi‑Fi/MQTT and optional LoRaWAN for long‑range deployments【833560065655601†L81-L99】. |
-| **Edge processing** | Minimal filtering and validation; raw data sent to cloud. | Performs validation, smoothing and local buffering when offline【969434594594407†L316-L483】. |
-| **Cloud platform** | Diverse platforms (ThingSpeak, custom servers); varying levels of scalability. | Uses Firebase for real‑time storage, authentication and serverless functions; scalable and easy to configure【969434594594407†L690-L853】. |
-| **Dashboard** | Basic charts; limited customisation; sometimes mobile only. | React web dashboard with real‑time charts, threshold configuration and role‑based access. |
-| **Alerts** | Some systems provide fixed alerts; thresholds often hard‑coded. | Configurable thresholds per pollutant and device, generating email/push notifications when exceeded. |
-| **Security & privacy** | Often lack authentication; data accessible to anyone. | Uses Firebase Authentication and Firestore rules for secure, granular access control【969434594594407†L690-L853】. |
-| **Scalability** | Many prototypes support few devices; limited by server resources. | Designed to scale horizontally with multiple devices and users, leveraging MQTT’s publish‑subscribe model. |
-| **Extensibility** | Adding sensors or features requires significant code changes. | Modular architecture allows adding sensors, integrating machine‑learning models and connecting to third‑party services. |
-
-## Deliverables for Part 2
-
-* **Chapter 2 (Literature Review)** – provides a comprehensive survey of low‑cost IoT air quality systems, details sensors and pollutants, evaluates edge vs cloud processing, analyses data platforms and dashboard approaches, and identifies gaps addressed by our system.
-* **Comparison table** – summarises differences between existing solutions and our system (see table above).  This table can be expanded with metrics such as cost, response time and user feedback when data becomes available.
-
-Tips: Consider creating a diagram showing the typical architecture of an IoT air quality monitoring system, including sensors, gateways, cloud services and dashboards.  A bar chart comparing the number of pollutants measured by various devices can illustrate the advantage of our system.  Including photographs of sensors or screenshots of dashboards from existing products can make the review more tangible.
+The system collects pollutant data from sensor nodes, processes and uploads readings to cloud storage, generates threshold-based alerts, and visualizes live/historical data through a web dashboard.
 
 ---
 
-# Chapter 3: Final Requirements (SRS) & System Design
+## 🎯 Objectives
 
-## Functional Requirements
-
-The system’s functional requirements (FRs) specify what it must do.  They derive from stakeholder needs and form the basis of the software requirements specification (SRS).
-
-| ID | Requirement | Description |
-|---|---|---|
-| **FR1** | Sensor data collection | Read data from PM2.5/PM10, CO₂, VOC/NO₂ and temperature/humidity sensors at configurable intervals. |
-| **FR2** | Data pre‑processing | Validate readings, discard outliers and apply smoothing or calibration to reduce noise【969434594594407†L316-L483】. |
-| **FR3** | Data packaging & transmission | Package readings as JSON and transmit to the cloud via MQTT or HTTPS【969434594594407†L519-L569】. |
-| **FR4** | Cloud storage & modelling | Store time‑stamped readings, device metadata, thresholds and alerts in a cloud database (Firebase). |
-| **FR5** | Real‑time dashboard | Display current and historical pollutant levels, device status and threshold settings in a web interface. |
-| **FR6** | Alerting | Generate notifications when pollutant concentrations exceed configurable thresholds【969434594594407†L630-L657】. |
-| **FR7** | User authentication | Allow user registration, login and role‑based access.  Admins can manage devices and thresholds; viewers can only read data. |
-| **FR8** | System configuration | Provide interfaces to register devices, adjust sampling intervals and thresholds and view device status. |
-| **FR9** | Forecasting (optional) | Implement predictive models (e.g., LSTM) to forecast air quality and display results on the dashboard. |
-
-## Non‑Functional Requirements
-
-Non‑functional requirements (NFRs) describe quality attributes such as performance, reliability and security:
-
-1. **Latency** – The system shall deliver readings from the sensor to the dashboard within **5 seconds**【969434594594407†L519-L569】.
-2. **Availability** – The system shall be available at least **95 %** of the time, with offline buffering during network outages【969434594594407†L316-L483】.
-3. **Scalability** – The architecture shall support adding multiple sensor nodes and handling increased traffic via MQTT’s publish‑subscribe model.
-4. **Security and privacy** – All data shall be transmitted over encrypted channels (TLS) and stored with access controls.  Only minimal personal data (email, role) will be stored【969434594594407†L690-L853】.
-5. **Usability** – The dashboard shall be intuitive, responsive and accessible via desktop and mobile browsers.
-6. **Reliability** – The system shall handle sensor errors gracefully, ensure data integrity and log exceptions.
-
-## System Architecture
-
-The system adopts a **four‑layer architecture**: edge, communication, cloud and application.  This separation of concerns promotes modularity and maintainability.  
-* **Edge layer** – Each sensor node contains a Raspberry Pi 5 with sensors (PM2.5/PM10, CO₂, VOC/NO₂, temperature/humidity).  The Pi runs Python scripts to read and validate data, apply calibration, smooth noise and package readings as JSON.
-* **Communication layer** – Data are transmitted via **MQTT** over Wi‑Fi; optional LoRaWAN modules provide long‑range, low‑power communication for remote deployments【833560065655601†L81-L99】.
-* **Cloud layer** – **Firebase** services provide authentication, Firestore database and cloud functions that ingest readings, perform threshold checks and store alerts.
-* **Application layer** – A **React** web dashboard displays live data, historical charts, thresholds and alerts.  It integrates with Firebase Authentication and Firestore and supports role‑based access.
-
-The architecture diagram (see Figure 1) illustrates these layers and their interactions.  Insert this diagram in this section to help readers visualise the system.  Annotate arrows with protocols (MQTT, HTTPS) and label components.
-
-![Architecture diagram]({{file:file-Fg5GJFh9d5hJeModReRX4f}})
-
-**Figure 1.** Layered architecture of the air quality monitoring system.  Sensor nodes collect data and publish via MQTT to the cloud; Firebase stores data and the React dashboard visualises it.  Optional LoRaWAN connectivity is shown.
-
-## Data Flow and Pipeline
-
-The data flow diagram (Figure 3) details the steps from sampling to visualisation and forecasting:
-
-1. **Sampling** – Sensors are read at regular intervals, and raw data are parsed.
-2. **Validation and calibration** – Data are checked for plausibility, and calibration factors or temperature/humidity corrections are applied.
-3. **Filtering and averaging** – Noise is reduced using moving averages or median filters; outliers are removed.
-4. **Packaging** – Data are encapsulated in JSON with device ID and timestamp.  Payload size is minimised for LoRaWAN.
-5. **Transmission** – Data are published to an MQTT broker.  If offline, they are buffered locally.
-6. **Cloud ingestion** – A cloud function validates the message, stores it in Firestore and checks thresholds.
-7. **Alerting** – When a value exceeds its threshold, an alert document is created, and a notification is sent.
-8. **Visualisation and analysis** – The dashboard queries Firestore for live and historical data, displays charts and optionally invokes forecasting models.
-
-![Data flow pipeline]({{file:file-94VGqo5jdV5dXk8dFAwQjF}})
-
-**Figure 3.** Data processing pipeline from sampling to visualisation and forecasting.  Steps emphasise validation, smoothing, packaging, transmission, cloud ingestion, threshold alerting and visualisation.
-
-## Database Design
-
-The Firestore database uses collections to organise data:
-
-* **`devices`** – metadata about each sensor node, including name, location, last‑seen timestamp and LoRaWAN keys.
-* **`readings`** – documents storing pollutant values, timestamp and device ID.  Document keys can be `deviceId_timestamp` to ensure uniqueness.
-* **`thresholds`** – threshold values per pollutant and device; includes a flag to enable or disable alerts and hysteresis settings.
-* **`alerts`** – alert records storing pollutant, measured value, threshold, time, device ID, message and acknowledgement status.
-* **`users`** – user profiles with role (admin/viewer) and preferences.  Access control rules restrict read/write operations accordingly.
-
-An entity‑relationship diagram (ERD) or collection schema diagram can illustrate the relationships between collections.  Consider adding this diagram here to help readers understand the data model.  Label fields and note indexes on timestamps to enable efficient queries.
-
-## API and Authentication Design
-
-The system primarily uses **Firebase functions** and the **MQTT broker** for data ingestion.  The API surface includes:
-
-* **MQTT topics** – devices publish to `devices/{deviceId}/readings`, and may subscribe to `devices/{deviceId}/config` for configuration updates.  QoS 1 is used to ensure message delivery【674081876632303†L78-L122】.
-* **HTTP endpoints** (optional) – Firestore REST API or custom functions can provide data retrieval or device registration via HTTPS.
-
-Authentication is handled by **Firebase Authentication**, supporting email/password login and OAuth providers.  The dashboard obtains an ID token upon login and includes it in requests.  Firestore security rules enforce role-based access.  Devices authenticate to the MQTT broker using unique credentials and TLS certificates.
-
-## Security and Privacy Controls
-
-Security and privacy are critical because environmental data can reveal patterns of occupancy or activity.  Measures include:
-
-* **Encryption in transit** – Use TLS for MQTT and HTTPS to prevent eavesdropping and tampering.
-* **Authentication** – Require login and enforce roles; only admins can modify thresholds or register devices.
-* **Data minimisation** – Store only necessary user information (email, role).  Avoid storing precise location coordinates unless needed.
-* **Access control** – Use Firestore rules to restrict collection access by role.  Ensure that readings are accessible only to authorised users.
-* **Regular updates** – Keep firmware and dependencies up to date to patch vulnerabilities.
-
-## Deliverables for Part 3
-
-* **Chapter 3 (Requirements & Design)** – outlines functional and non‑functional requirements, describes the system architecture, data flow and data model, details the API and authentication approach, and summarises security and privacy controls.
-* **Diagram list** – includes the architecture diagram, data flow diagram and ERD/Firebase structure diagram.  Create or update these diagrams using tools like draw.io, Lucidchart or Python libraries.  Annotate each diagram for clarity.
-
-Tips: Place the architecture diagram and pipeline diagram where they naturally fit in Chapter 3.  Add callouts to highlight how data moves through each layer.  An ERD helps readers grasp the Firestore structure; you can generate this using diagram tools or by writing a simple table.  Including pseudo-code snippets or API examples can illustrate design decisions.
+- Collect and transmit air quality data in near real time (target: **< 5 seconds** end-to-end)
+- Support core pollutants and environmental variables:
+  - PM2.5 / PM10
+  - CO₂
+  - VOC / NO₂
+  - Temperature / Humidity
+- Build a modular architecture with replaceable layers
+- Provide role-based dashboard access (Admin vs Viewer)
+- Enable configurable alerts and notifications
+- Support future expansion (extra sensors, forecasting, mobile app, multi-node deployments)
 
 ---
 
-# Chapter 4: Implementation Plan, Testing & Evaluation
+## 🧱 System Architecture
 
-## Implementation Plan
+The system is designed in four layers:
 
-### Hardware Setup
+1. **Edge Layer**
+   - Raspberry Pi 5 + sensors
+   - Local validation, calibration, smoothing, buffering
 
-Assemble each sensor node by connecting sensors to the Raspberry Pi:
+2. **Communication Layer**
+   - MQTT over Wi-Fi
+   - Optional LoRaWAN for long-range deployments
 
-* **PM sensor** (PMS7003 or SDS011) via UART at 9600 baud.
-* **CO₂ sensor** (MH‑Z19 or SCD30) via UART or I²C.
-* **VOC/NO₂ sensor** (SGP30 or Alphasense electrochemical sensor) via I²C or analog interface with appropriate signal conditioning.
-* **Temperature/humidity sensor** (BME280) via I²C.
-* **LoRa module** (optional RFM95) via SPI.  
+3. **Cloud Layer**
+   - Firebase Authentication
+   - Firestore (data + alert storage)
+   - Cloud Functions (threshold checks, alert logic)
 
-A logic‑level converter ensures compatibility between 5 V sensors and the Pi’s 3.3 V GPIO.  Place the assembly in a ventilated enclosure to protect sensors while allowing air flow.  Provide a stable 5 V power supply.
-
-### Software Stack
-
-* **Data acquisition module** – Python scripts using libraries such as `pyserial`, `smbus2` and sensor drivers to read data.  Implements validation, calibration and smoothing logic.
-* **Data upload module** – uses `paho‑mqtt` to publish messages to the MQTT broker with QoS 1, TLS and optional authentication.  Implements offline buffering.
-* **Cloud functions** – Node.js functions that ingest readings, store them in Firestore, compare against thresholds and record alerts.  Additional functions can compute aggregated statistics or forecasting results.
-* **Dashboard UI** – built in React with Material‑UI components; uses Firebase SDK for authentication and Firestore access.  Utilises Chart.js to visualise time‑series data and tables for summaries.  Implements pages for device management, threshold configuration, live readings, historical charts and alert logs.
-
-### Modules and Subsystems
-
-* **Data acquisition** – reading sensors, performing basic validation, packaging data.
-* **Data validation/filtering** – smoothing using moving averages or median filters; removing outliers.
-* **Cloud upload & storage** – publishing data to the MQTT broker; cloud functions writing to Firestore.
-* **Dashboard UI** – presenting live/historical data, forms for threshold and device management, login/logout.
-* **Alerts/notifications** – generating alerts in Firestore and sending email/push notifications.  Integrate with Firebase Cloud Messaging or third‑party services (e.g., Twilio).
-
-Each subsystem should have modular code with clear interfaces.  Use GitHub for version control and branches for each module.  Document configuration parameters (e.g., MQTT broker URL, sampling interval) in a config file or environment variables.
-
-## Testing and Evaluation
-
-### Unit Testing
-
-Test individual functions in the Python scripts:
-
-* **Sensor reading** – verify that raw data are correctly parsed from each sensor.  Simulate faulty readings to ensure error handling works.
-* **Data formatting** – ensure JSON payloads conform to the expected schema and are within LoRaWAN payload size limits.
-* **Calibration functions** – test calibration routines with known inputs and outputs.
-
-### Integration Testing
-
-* **Edge → Cloud** – simulate sensor readings and verify that they are published to the MQTT broker and stored in Firestore.  Test reconnection logic and offline buffering.
-* **Cloud → Dashboard** – verify that the dashboard receives real‑time updates when new readings arrive and displays them correctly.
-* **Alert flow** – trigger threshold exceedances and ensure alerts are recorded and notifications sent.
-
-### Performance Testing
-
-* **Latency measurement** – record timestamps at sensor reading and when the value appears on the dashboard.  Calculate average latency and ensure it meets the 5‑second requirement.
-* **Update frequency** – test the system’s ability to handle different sampling intervals (e.g., 1 min vs 10 mins) and how it affects network load and responsiveness.
-
-### Accuracy Validation
-
-Compare sensor readings against a reference instrument (if available) or a high‑quality monitor (e.g., PurpleAir or official station).  Calculate deviations and adjust calibration coefficients.  Document accuracy limitations and improvements needed for future work.
-
-### Test Case Matrix and Metrics
-
-| Test Case | Input | Expected Output | Pass Criteria |
-|---|---|---|---|
-| **TC1: Sensor read success** | Simulate normal conditions; call sensor reading function. | Returns plausible PM, CO₂, VOC/NO₂ and temperature/humidity values. | Values within sensor’s specified range. |
-| **TC2: Network outage** | Disable Wi‑Fi or MQTT broker. | Data buffered locally and retransmitted upon reconnection. | No data loss; completeness > 95 %. |
-| **TC3: Threshold exceedance** | Send reading above threshold. | Alert record created; notification sent. | Alert stored in Firestore with correct pollutant, value and timestamp; notification delivered. |
-| **TC4: Authentication** | Attempt to access dashboard without logging in. | Redirected to login page. | Unauthenticated users cannot access data pages. |
-| **TC5: Role access** | Use viewer role to modify thresholds. | Action denied. | Non-admin users cannot modify thresholds or register devices. |
-| **TC6: Data query** | Query historical data for a device and date range. | Returns correct set of readings in chronological order. | Data matches Firestore records. |
-
-Metrics such as latency, data completeness, alert precision and recall and user satisfaction (via surveys) should be recorded and analysed.  Visualise latency measurements with a line or box plot to show distribution and identify outliers.  Use bar charts for data completeness or alert precision.
-
-## Deliverables for Part 4
-
-* **Chapter 4 (Results & Analysis)** – describes the implementation plan, hardware and software components, subsystem breakdown, testing methodology and evaluation results.  If testing is still ongoing, provide a planned evaluation section describing how tests will be conducted and what metrics will be measured.
-* **Test case matrix and metrics table** – summarises test inputs, expected outputs, pass criteria and measured metrics (see table above).  This can be extended as more tests are designed.
-
-Tips: Include a simulated time‑series chart illustrating PM2.5 or CO₂ levels over a day (e.g., Figure 2).  A screenshot of the dashboard or a mockup will help readers understand the user interface.  A flowchart of the alert generation process can visually summarise the steps executed when a threshold is exceeded.
+4. **Application Layer**
+   - React dashboard
+   - Live monitoring, analytics, alerts, settings, device management
 
 ---
 
-# Chapter 5: Project Management, Risk, Ethics & Conclusion
+## 🔁 Data Flow
 
-## Project Management
+Sensor → Pi 5 Collector → MQTT/API → Cloud Ingestion → Firestore → Dashboard → End User
 
-### Methodology
+Additional path:
+- Threshold exceeded → Alert record created → Notification sent (email/push) → User acknowledgement logged
 
-The project will follow an **Agile** methodology with two‑week sprints.  Each sprint includes planning, development, testing and review.  This iterative approach allows regular feedback and incremental improvements.
+---
 
-### Roles & Responsibilities (RACI)
+## 👥 Stakeholders
 
-| Task/Deliverable | Responsible | Accountable | Consulted | Informed |
-|---|---|---|---|---|
-| Project planning & backlog | Project manager | Team lead | All members | Stakeholders |
-| Sensor hardware assembly | Member 4 | Project manager | Member 1 (requirements), Member 2 (sensors research) | Stakeholders |
-| Firmware development | Member 4 | Team lead | Member 3 (design) | Members |
-| Cloud infrastructure setup | Member 3 | Project manager | Member 4 | Members |
-| Dashboard development | Member 4 | Team lead | Member 3 | Members |
-| Literature review | Member 2 | Project manager | Member 1 | Team |
-| Requirements & design documentation | Member 3 | Project manager | Member 2 | Team |
-| Testing & evaluation | Member 4 | Project manager | Member 3 | Team |
-| Risk assessment & ethics | Member 5 | Project manager | Members | Team |
-| Final report & presentation | Member 5 | Project manager | All members | Stakeholders |
+- Students & researchers
+- Public/home users
+- Campus/facility administrators
+- Developers/hobbyists
 
-This RACI (Responsible, Accountable, Consulted, Informed) table clarifies who leads each task, who approves deliverables, who provides input and who needs to be kept informed.
+---
 
-### Timeline / Sprint Plan
+## 📂 Repository Structure (suggested)
 
-Week 1–2: Literature review and requirement gathering; select sensors and define objectives.  
-Week 3–4: Design architecture and database; prototype sensor reading and data ingestion modules.  
-Week 5–6: Develop dashboard front‑end and integrate with Firebase Authentication and Firestore.  
-Week 7–8: Implement alerting features and threshold configuration; build unit tests.  
-Week 9–10: Conduct integration and performance testing; refine calibration; prepare comparison with reference data.  
-Week 11–12: Finalise documentation, risk assessment and ethics analysis; prepare final presentation and demonstration.
-
-Use Jira or Trello to track tasks, assign story points and monitor progress.  Hold weekly standups to discuss achievements, blockers and plans.  Document design decisions and code changes in GitHub pull requests for traceability.
-
-### Tools and Communication Plan
-
-* **GitHub** – version control and code repository; use branches for features and issues.
-* **Jira/Trello** – backlog management and sprint planning; track tasks and progress.
-* **Documentation** – maintain design documents, meeting notes and reports in a shared workspace (e.g., Confluence or Google Docs).
-* **Communication** – weekly meetings (in person or online), daily chat updates (e.g., Slack/Teams), and periodic emails to stakeholders.  Record decisions and action items.
-
-## Risk and Ethics
-
-### Risk Register
-
-| Risk | Likelihood | Impact | Mitigation |
-|---|---|---|---|
-| **Sensor calibration drift** | Medium | Moderate | Conduct periodic calibration against reference instruments; implement software calibration factors. |
-| **Network connectivity loss** | High | Moderate | Implement offline buffering and reconnection logic; consider LoRaWAN fallback. |
-| **Data privacy breach** | Low | High | Use TLS for data transmission; implement strong authentication and access control; minimise stored personal data. |
-| **Power supply failure** | Medium | High | Use stable power supplies; monitor power status; provide battery backup for critical nodes. |
-| **Hardware failure** | Low | Moderate | Keep spare sensors and Pi units; perform pre‑deployment testing; design modular components for easy replacement. |
-| **Schedule slippage** | Medium | Moderate | Use Agile sprints with buffer time; prioritise critical features; regularly review progress and adjust scope. |
-
-This risk register should be updated during the project as new risks are identified.
-
-### Ethical Considerations
-
-Monitoring air quality involves collecting environmental data that might reveal patterns of occupancy or human activity.  Ethical considerations include:
-
-* **Data privacy** – Respect user privacy by minimising personal information collection and securing data storage.  Provide clear consent forms if user data are collected.
-* **Transparency and accuracy** – Communicate the limitations of low‑cost sensors and avoid portraying the system as a certified instrument.  Provide guidance on interpreting readings (e.g., relative trends vs absolute values).  
-* **Bias and equity** – Ensure that monitoring deployments do not disproportionately serve certain communities while neglecting others.  Engage stakeholders to identify priority locations.  
-* **Environmental sustainability** – Design for energy efficiency to minimise power consumption.  Encourage reuse of components and proper disposal of electronic waste.  
-* **Open data** – Where possible, share aggregated data to support research and public awareness, while protecting privacy.
-
-### Sustainability Considerations
-
-Sustainability encompasses long‑term maintenance of sensor nodes, energy usage and financial viability.  Use durable components, modular designs for easy repair and open‑source software to enable community contributions.  If battery‑powered nodes are deployed, optimise power consumption (e.g., by using microcontrollers instead of Raspberry Pi for remote nodes).  Plan for periodic calibration and sensor replacement.
-
-## Wrap‑Up: Conclusion, Limitations and Future Work
-
-### Conclusion and Achievements
-
-This project proposed and implemented a modular, real‑time air quality monitoring system based on a Raspberry Pi 5.  It integrated low‑cost sensors to measure PM2.5/PM10, CO₂, VOC/NO₂ and environmental variables, transmitted data via MQTT and optionally LoRaWAN, stored readings and alerts in Firebase, and provided a React dashboard for visualisation and configuration.  The system achieved end‑to‑end latency under **5 seconds**【969434594594407†L519-L569】 and demonstrated offline buffering, threshold alerts and user authentication.  It is scalable and extensible, laying the foundation for multi‑node deployments and predictive analytics.
-
-### Limitations
-
-The prototype uses low‑cost sensors prone to drift and cross‑sensitivity【891104164000418†L134-L166】; thus its measurements are indicative rather than precise.  Calibration against reference instruments is limited by budget and time.  LoRaWAN deployment is optional and subject to duty‑cycle regulations【833560065655601†L81-L99】.  The system monitors a limited set of pollutants and does not include a mobile app.  Real‑world validation across diverse environments is outside the scope of this semester project.
-
-### Future Work
-
-Future enhancements could include:
-
-* **Multi‑node LoRaWAN deployment** – Implement several nodes across a campus or neighbourhood; evaluate coverage, latency and power consumption.
-* **Machine‑learning forecasting** – Train LSTM or transformer models using historical data and weather variables; integrate predictions into the dashboard.  A recent study shows that LSTM models can predict high‑pollution events 45 minutes in advance【364005039441211†L54-L90】.
-* **Additional pollutants** – Add sensors for ozone, sulfur dioxide, carbon monoxide and black carbon; compute Air Quality Index (AQI) following local standards.
-* **Mobile app** – Develop a mobile application for on‑the‑go monitoring, notifications and device calibration.
-* **Calibration toolkit** – Provide tools for calibrating sensors using portable reference monitors; implement automatic drift compensation.
-* **Public engagement** – Share aggregated data through open APIs and involve citizen scientists in deployment and analysis.  Ensure equity in sensor distribution and data access.
-
-Including a timeline or roadmap chart can illustrate planned enhancements and dependencies.
-
-## Deliverables for Part 5
-
-* **Chapter 5 (Conclusion)** – summarises the project management approach, risk register, ethical and sustainability considerations, achievements, limitations and future work.
-* **Risk register and project plan tables** – show risks, mitigations, roles and responsibilities and sprint schedule.  Use tables like those above and include them in the final report.
-* **Ethics and privacy section** – discusses the ethical implications of environmental monitoring and outlines measures to protect user privacy and ensure responsible data use.
-
-Tips: Create a Gantt chart or timeline to visualise the sprint plan.  Represent the risk matrix graphically or as a heatmap.  A RACI diagram could be visualised using a grid or chart.  Use icons and colours to denote severity levels in the risk register and progress in the sprint plan.  End the report with a compelling conclusion that links back to the initial problem and emphasises the project’s impact.
+```text
+Air-Pollution-Monitoring-Project-1/
+├── AMS Dashboard/                # Frontend dashboard (React)
+├── Backend For IOT/              # Cloud/backend scripts & services
+├── Frontend Code for IOT/        # Additional frontend resources (if applicable)
+├── docs/                         # Report chapters, diagrams, references
+│   ├── architecture_diagram.png
+│   ├── data_pipeline_diagram.png
+│   └── ...
+└── README.md
